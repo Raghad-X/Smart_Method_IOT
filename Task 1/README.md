@@ -1,5 +1,5 @@
-Smart Method Internship
-IOT & Software Track
+Smart Method Internship,
+IOT & Software Track,
 Task 1
 
 This task inculdes a page that controls the motors values through sliders
