@@ -1,0 +1,283 @@
+{
+  "intents": [
+    {
+      "intent": "التقديم_على_وظيفة",
+      "examples": [
+        {
+          "text": "انا مطابق للشروط وحاب اقدم على الوظيفة"
+        },
+        {
+          "text": "ايش شروط الوظيفة؟"
+        },
+        {
+          "text": "تحب ارسل اعمالي السابقة؟"
+        },
+        {
+          "text": "فين ارسل سيرتي الذاتية؟"
+        },
+        {
+          "text": "كيف اقدر اقدم على الوظيفة؟"
+        },
+        {
+          "text": "متى المقابلة الشخصية؟"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "الوظائف_المتاحة",
+      "examples": [
+        {
+          "text": "احتاج وظيفة لو سمحت"
+        },
+        {
+          "text": "ايش الوظائف اللي عندكم؟"
+        },
+        {
+          "text": "تقدر توظفني؟"
+        },
+        {
+          "text": "عندكم وظائف؟"
+        },
+        {
+          "text": "فيه وظايف؟"
+        },
+        {
+          "text": "فيه وظيفة اقدر اقدم عليها؟"
+        },
+        {
+          "text": "ماهي الوظائف المتاحة لديكم؟"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "ترحيب",
+      "examples": [
+        {
+          "text": "السلام عليكم"
+        },
+        {
+          "text": "اهلا"
+        },
+        {
+          "text": "سلام"
+        },
+        {
+          "text": "كيف الحال"
+        },
+        {
+          "text": "مرحبا"
+        },
+        {
+          "text": "هاي"
+        },
+        {
+          "text": "هيلو"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "وظيفة",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "مبرمجة",
+          "synonyms": [
+            "تقني",
+            "مبرمج",
+            "مطور",
+            "مهندسة برمجيات"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "محاسبة",
+          "synonyms": [
+            "محاسب اداري",
+            "محلل مالي",
+            "مستشارة مالية"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_5_1629655171022",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_4_1629655245479",
+      "event_name": "input",
+      "dialog_node": "handler_10_1629655245486"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_6_1629655238638",
+      "event_name": "input",
+      "dialog_node": "handler_1_1629655238645"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1629655238638",
+      "event_name": "focus",
+      "dialog_node": "handler_3_1629655238645",
+      "previous_sibling": "handler_1_1629655238645"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_4_1629655245479",
+      "event_name": "focus",
+      "dialog_node": "handler_9_1629655245486",
+      "previous_sibling": "handler_10_1629655245486"
+    },
+    {
+      "type": "frame",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "يرجى ارسال السيرة الذاتية على الايميل التالي: job@assistant.com وسيتك التواصل معك في حال القبول المبدئي"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#التقديم_على_وظيفة",
+      "dialog_node": "node_5_1629655171022",
+      "previous_sibling": "node_6_1627056854698"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "title": "هذه الوظائف المتاحة حالياً",
+            "options": [
+              {
+                "label": "برمجة",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              },
+              {
+                "label": "محاسبة",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "conditions": "#الوظائف_المتاحة",
+      "dialog_node": "node_6_1627056854698",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "slot",
+      "parent": "node_6_1627056854698",
+      "dialog_node": "slot_4_1629655245479"
+    },
+    {
+      "type": "slot",
+      "parent": "node_5_1629655171022",
+      "dialog_node": "slot_6_1629655238638"
+    },
+    {
+      "type": "standard",
+      "title": "مرحبا",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "مرحبا، كيف اقدر اخدمك؟"
+              },
+              {
+                "text": "أهلا، اسألني"
+              },
+              {
+                "text": "يا هلا، تفضل كيف ممكن اساعدك؟"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#ترحيب",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "ايجاد وظيفة",
+  "language": "en",
+  "description": ""
+}
